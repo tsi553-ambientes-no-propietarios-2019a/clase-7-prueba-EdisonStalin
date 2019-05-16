@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 
 <form method="post" action="validacion_registrotienda.php">
 	
-
+						
 						<div>
 							<label><i> <b> Nombre de la Tienda: </i> </b></label>
 

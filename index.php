@@ -16,13 +16,13 @@
 						<div>
 							<label><i> <b> Usuario: </i> </b></label>
 
-							<input type="text" id="userid" name="usuarioindex" required="required" placeholder="Ingrese Usuario" >
+							<input type="text" id="userid" name="usuario" required="required" placeholder="Ingrese Usuario" >
 
 						</div>
 						<br> 
 						<div>
 							<label> <i> <b> Clave: </i> </b></label> 
-							<input type="password" name="claveindex" required="required" placeholder="Ingrese Contraseña">
+							<input type="password" name="clave" required="required" placeholder="Ingrese Contraseña">
 						</div>
 						<br>
 						

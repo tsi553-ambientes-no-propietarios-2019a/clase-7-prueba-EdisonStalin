@@ -1,39 +1,46 @@
+<?php 
+if($_POST) {
+    if (isset($_POST['usuario']) && isset($_POST['clave']) && !empty($_POST['usuario']) && !empty($_POST['clave'])) {
+        $username = $_POST['usuario'];
+        $password = $_POST['clave'];
 
-<?php
-if ($_POST) {
-    if (isset($_POST['usuarioindex']) && isset($_POST['claveindex']) ) {
+        $conn= new mysqli('localhost','root','','prueba_b1');
+        $sql = "SELECT *
+        FROM tienda
+        WHERE Usuario_Tienda='$username'
+        AND Clave_Tienda='$password'";
 
+        $res = $conn->query($sql);
 
-        
-        $user=$_POST['usuarioindex'];
-        $pass=$_POST['claveindex'];
-        
-        
-
-        $conn= new mysqli('localhost','root','','pruebab1');
-        if ($conn->connect_error) {
-            echo 'Error en la conexion '. $conn->connect_error;
+        if ($conn->error) {
+            redirect('index.php?error_message=Ocurrió un error: ' . $conn->error);
         }
-        
-        $sql_insert="select Usuario,Clave from tienda
-						where Usuario = '$user' and Clave = '$pass';";
-        
-        $conn->query($sql_insert);
-        if($conn->error){
-            echo 'Ocurrio un error ----> '.$conn->error;
 
-        }else {
-            header('Location: inicio.php?succeed_message=validaciòn  exitosa!!!!');
+        if($res->num_rows > 0) {
+                while ($row = $res->fetch_assoc()) {
+                    $_SESSION['user'] = [
+                        '$username' => $row['Usuario_Tienda'],
+                        '$password' => $row['Clave_Tienda']
+                    ];
+
+                    $NomUsuario = $row['Usuario_Tienda'];
+                    $NomTienda = $row['Nombre_Tienda'];
+                    $CodTienda = $row['Cod_Tienda'];
+
+                    header("Location: inicio.php?nom=$NomUsuario&tien=$NomTienda&id=$CodTienda");
+                }
+        } else {
+            header('location: index.php?error_message=Usuario o clave incorrectos!');
         }
-        
-        
-    }else {
-        
-        header('Location: index.php?error_message=validaciòn no exitosa!!!!');
+
+
+    } else {
+        redirect('index.php?error_message=Ingrese todos los datos!');
     }
+} else {
+    redirect('index.php');
 }
-?>
 
 
 
-</html>
+
